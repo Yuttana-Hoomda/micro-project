@@ -15,12 +15,21 @@
  *
  ******************************************************************************
  */
-
+#define STM32F411xE
 #include <stdint.h>
+#include "stm32f4xx.h"
+#include "sub_function.h"
 
-#include "sub_fuction.h"
+#define THRESHOLD 1333333
 
-int main(void)
-{
-   seven_segment(1);
+int main(void) {
+	RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOCEN+RCC_AHB1ENR_GPIOBEN+RCC_AHB1ENR_GPIOAEN);
+
+   while(1) {
+	   for (int i = 0; i <= 5; i++) {
+		   seven_segment(i);
+		   for(uint32_t iter =0; iter < THRESHOLD; iter++) {}
+	   }
+   return 0;
+   }
 }
